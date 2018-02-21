@@ -216,6 +216,36 @@ def mine():
     }
     return jsonify(response), 200
 
+@app.route('/calculate', methods=['GET'])
+def calculate():
+        # Calculate total amount transacted by a sender/recepient
+        chain = blockchain.chain
+        length = len(chain)
+        values = request.args
+        if values.get('sender'):
+            entity = 'sender'
+            identity = values.get('sender')
+        elif values.get('recipient'):
+            entity = 'recipient'
+            identity = values.get('recipient')
+        else:
+            return 'Missing Parameters', 400
+
+        total = 0
+        if length > 1:
+            for ch in chain:
+                for transaction in ch['transactions']:
+                    if transaction[entity] == identity:
+                        total += transaction['amount']
+            response = {
+                entity: identity,
+                'total_amount': total
+            }
+            return jsonify(response), 200
+        else:
+            return '', 204
+
+
 @app.route('/transactions/new', methods=['POST'])
 def new_transaction():
     values = request.get_json()

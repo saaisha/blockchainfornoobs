@@ -14,6 +14,8 @@ Register : Decentralize by registering new nodes.
 
 Resolve : Resolve chain discrepancies between nodes through a simple consensus algorithm. 
 
+Calculate : Calculate total amount transacted by a sender/recepient
+
 # Postman collection: 
 
 https://www.getpostman.com/collections/c77beb459fee7a2aad5e
